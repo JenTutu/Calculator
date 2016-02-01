@@ -12,7 +12,7 @@ class CalculatorBrain
     var variableValues: Dictionary<String, Double>
 //    must set variables, either in init or when the variable is declared
 //    also, always clean and/or build the project
-    private var opStack = [Op]() //this is short hand for creating an array of Op types; the opStack holds operands and operators that we will display to the user
+    var opStack = [Op]() //this is short hand for creating an array of Op types; the opStack holds operands and operators that we will display to the user
     private var knownOps = [String:Op]() //this is like a dictionary that stores definitions for the operators. It has Strings for keys and Ops for values
     
     init() { //when we create a calculator, init with this dictionary:
@@ -47,7 +47,7 @@ class CalculatorBrain
 //        //knownOps["√"] = Op.UnaryOperation("√") { sqrt($0) }
 //        knownOps["√"] = Op.UnaryOperation("√", sqrt)
 //    }
-    private enum Op {
+    /*private*/ enum Op {
         case Operand(Double) //This says that the value of the operand is a string (this has nothing to do with dictionaries)
         case Variable(String)
         case UnaryOperation(String, Double -> Double) //this is a fxn see 13min; a unaryOPeration is a string and has a fxn associated with it. that fxn takes in a double and returns a double
@@ -78,6 +78,14 @@ class CalculatorBrain
             } while ops.count > 0
             return result
         }
+    }
+
+//    how to set an Op value
+    private func opTestFunc(op: Op) {
+        let  x: Op = .Variable("my variable")
+        
+        let description: String = x.description //op.description
+        print (description)
     }
     
     //    when u type args into function, unless the arg is a class instance, the arg is a copy and is therefore immutable; also there is an implicit let in front of such args
@@ -113,7 +121,7 @@ class CalculatorBrain
         }
         return (nil, ops)
     }
-    //what's the purpose of evaluate? To evaluate a function, you replace the variable with the value given
+    //To evaluate a function, you replace the variable with the value given
     //        this needs to return an optional bc the person could hit an operator without first typing in operands
     func evaluate() -> Double? {
         

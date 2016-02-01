@@ -12,39 +12,48 @@ import XCTest
 
 
 class CalculatorTests: XCTestCase {
-
-    var controller: ViewController?
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
     
     func testExample() {
         // This is an example of a functional test case.
 //        XCTAssert(true, "Pass")
         let sum = 1 + 2
         XCTAssertEqual(3, sum, "sum should be 3")
+        XCTAssertTrue(sum == 3, "Value should be 3")
+        XCTAssertNotNil(sum)
+        
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
+    func ignoreExampleShouldFail() {
+        let sum = 1 + 3
+        XCTAssertEqual(2, sum, "Value should be 2")
+
     }
     
-    func testClear() {
-       let myCtrllr = ViewController()
-        myCtrllr.clear()
-        XCTAssertEqual(myCtrllr.historyDisplay.text, " ")
-       
-    }
+//    this is the correct way to test the viewctrllr if doing UI Automation
+//    func testExampleReturnTrue() {
+//        var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
+//        var vc = storyboard.instantiateViewControllerWithIdentifier("View Ctrllr") as! ViewController
+//        vc.loadView()
+//        XCTAssertTrue(vc.exampleFxnReturnTrue(), "should return true")
+//    }
+//    
+//    func testClear() {
+//
+//        
+//        
+//       let myCtrllr = ViewController()
+//        myCtrllr.clear()
+//        XCTAssertEqual(myCtrllr.historyDisplay.text, " ")
+//    }
+
+//    func testOperate() {
+//        
+//    }
+//    
+//    func testAppendHistory() {
+//        
+//    }
+//
+//    
     
 }

@@ -20,6 +20,10 @@ class ViewController: UIViewController {
     var mSetter: String = "M"
     var brain = CalculatorBrain()
 
+    func exampleFxnReturnTrue() -> Bool {
+        return true
+    }
+    
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
  
@@ -37,16 +41,6 @@ class ViewController: UIViewController {
         appendHistory(digit)
 
     }
-    
-//    private func appendHistory(value: String) {
-//        // Remove the last " = "
-//        if (value != " = ") && (historyDisplay.text!.rangeOfString(" = ") != nil) {
-//            historyDisplay.text = historyDisplay.text!.stringByReplacingOccurrencesOfString(" = ", withString: "")
-//        }
-//        historyDisplay.text = historyDisplay.text! + value
-//    }
-    
-    
     
     func appendHistory(operandOrOperator: String) {
         if historyDisplay.text != nil {
@@ -78,6 +72,8 @@ class ViewController: UIViewController {
 
 
     @IBAction func clear() {
+//        historyDisplay.text! = "something"
+//        print(historyDisplay.text! = "SOME")
                 brain.clearStack()
                 userIsInTheMiddleOfTypingANumber = false
 //                display.text = defaultDisplayText
@@ -88,22 +84,13 @@ class ViewController: UIViewController {
     //this enter should be set to private
     @IBAction func enter() {
         userIsInTheMiddleOfTypingANumber = false
-        if let result = brain.pushOperand(displayValue!){
-            brain.pushOperand(displayValue!)
-            displayValue = result
-            print("this is the result: \(result)")
-            print("this is the displayValue: \(displayValue!)")
-//            print("this is the displayValue!: \(displayValue!)")
-
-        } else {
-            displayValue = 0
-        }
+        displayValue = brain.pushOperand(displayValue!)
     }
     
     //displayValue is the number format of the string value in the display.
     var displayValue: Double? {
         get{
-            print("this is display.text in enter: \(display.text!)")
+//            print("this is display.text in enter: \(display.text!)")
             if let displayValue = NSNumberFormatter().numberFromString(display.text!) {
                 return displayValue.doubleValue
             } else {
@@ -112,8 +99,16 @@ class ViewController: UIViewController {
                 return nil
             }
         }
-        set{
-            display.text = "\(newValue)"
+        set {
+            if let actualValue = newValue {
+                display.text = "\(actualValue)"
+            } else {
+                // to be determined
+//                DC PROJECT FOR WHAT TO SET TO HERE IF NIL PASSED IN
+            }
+            
+            
+//            display.text = "\(newValue)"
             userIsInTheMiddleOfTypingANumber = false
 //            historyDisplay.text = brain.description + " ="
         }
@@ -135,15 +130,6 @@ class ViewController: UIViewController {
         displayValue = brain.evaluate()
         
     }
-    
-    
-    
-    //*new add. this enter should stay as is
-//    @IBAction func enter(sender: UIButton) {
-//        appendHistory(display.text!)
-//        appendHistory(" ⏎ ")
-//        enter()
-//    }
     
 
 }
